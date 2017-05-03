@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DepartementCreateDlg" widgetVar="DepartementCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDepartementTitle}">
+            <h:form id="DepartementCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{departementController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDepartementLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{departementController.selected.nom}" title="#{bundle.CreateDepartementTitle_nom}" />
+                        <p:outputLabel value="#{bundle.CreateDepartementLabel_responsable}" for="responsable" />
+                        <p:selectOneMenu id="responsable" value="#{departementController.selected.responsable}" >
+                            <f:selectItems value="#{employeController.itemsAvailableSelectOne}"
+                                           var="responsableItem"
+                                           itemValue="#{responsableItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{departementController.create}" value="#{bundle.Save}" update="display,:DepartementListForm:datalist,:growl" oncomplete="handleSubmit(args,'DepartementCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DepartementCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

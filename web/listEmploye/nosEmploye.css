@@ -1,0 +1,48 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 30 avr. 2017, 23:20:39
+    Author     : Lina
+*/
+body{
+            background-color: #2E6DAF;
+            padding-left: 5%;
+            padding-right: 5%;
+}
+.container-fluid{
+    padding: 0;
+    margin: 0;
+}
+.respo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20px;
+    padding-bottom:10px;
+    text-align: center;
+}
+#image{
+    min-width: 100px;
+    border: 2px solid white;
+    display:inline-block;
+}
+.carac{
+    color: white;
+    font-family: "Bookman","Georgia Times";
+}
+#Cemp,.text-info{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+.pan{
+    margin: 10px;
+}
+.text-info{
+width: 150px;
+margin: 5% auto 5% auto;
+padding:0;
+}

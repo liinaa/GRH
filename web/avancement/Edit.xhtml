@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AvancementEditDlg" widgetVar="AvancementEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAvancementTitle}">
+            <h:form id="AvancementEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{avancementController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditAvancementLabel_employe}" for="employe" />
+                        <p:selectOneMenu id="employe" value="#{avancementController.selected.employe}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{employeController.itemsAvailableSelectOne}"
+                                           var="employeItem"
+                                           itemValue="#{employeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAvancementLabel_dateAvancement}" for="dateAvancement" />
+                        <p:calendar id="dateAvancement" pattern="MM/dd/yyyy" value="#{avancementController.selected.dateAvancement}" title="#{bundle.EditAvancementTitle_dateAvancement}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditAvancementLabel_echelonSource}" for="echelonSource" />
+                        <p:selectOneMenu id="echelonSource" value="#{avancementController.selected.echelonSource}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{echelonController.itemsAvailableSelectOne}"
+                                           var="echelonSourceItem"
+                                           itemValue="#{echelonSourceItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAvancementLabel_echelonDestination}" for="echelonDestination" />
+                        <p:selectOneMenu id="echelonDestination" value="#{avancementController.selected.echelonDestination}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{echelonController.itemsAvailableSelectOne}"
+                                           var="echelonDestinationItem"
+                                           itemValue="#{echelonDestinationItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAvancementLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{avancementController.selected.id}" title="#{bundle.EditAvancementTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{avancementController.update}" value="#{bundle.Save}" update="display,:AvancementListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AvancementEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AvancementEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

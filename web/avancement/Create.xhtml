@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AvancementCreateDlg" widgetVar="AvancementCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAvancementTitle}">
+            <h:form id="AvancementCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{avancementController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateAvancementLabel_employe}" for="employe" />
+                        <p:selectOneMenu id="employe" value="#{avancementController.selected.employe}" >
+                            <f:selectItems value="#{employeController.itemsAvailableSelectOne}"
+                                           var="employeItem"
+                                           itemValue="#{employeItem}"
+                                           itemLabel="#{employeItem.nom} #{employeItem.prenom}"/>
+                            <p:ajax process="employe" listener="#{avancementController.findNext()}" update="echelonDestination"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateAvancementLabel_dateAvancement}" for="dateAvancement" />
+                        <p:calendar id="dateAvancement" pattern="dd/MM/yyyy" value="#{avancementController.selected.dateAvancement}" title="#{bundle.EditAvancementTitle_dateAvancement}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateAvancementLabel_echelonDestination}" for="echelonDestination" />
+                        <p:selectOneMenu id="echelonDestination" value="#{avancementController.selected.echelonDestination}" >
+                            <f:selectItems value="#{echelonController.itemsAvailableSelectOne}"
+                                           var="echelonDestinationItem"
+                                           itemValue="#{echelonDestinationItem}"
+                                           itemLabel="#{echelonDestinationItem.numero} echelle (#{echelonDestinationItem.echelle.numero})"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{avancementController.create}" value="#{bundle.Save}" update="display,:AvancementListForm:datalist,:growl" oncomplete="handleSubmit(args,'AvancementCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AvancementCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+
+    </ui:composition>
+</html>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AvancementViewDlg" widgetVar="AvancementViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAvancementTitle}">
+            <h:form id="AvancementViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{avancementController.selected != null}">
+                        <h:outputText value="#{bundle.ViewAvancementLabel_employe}"/>
+                        <h:outputText value="#{avancementController.selected.employe}" title="#{bundle.ViewAvancementTitle_employe}"/>
+                        <h:outputText value="#{bundle.ViewAvancementLabel_dateAvancement}"/>
+                        <h:outputText value="#{avancementController.selected.dateAvancement}" title="#{bundle.ViewAvancementTitle_dateAvancement}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewAvancementLabel_echelonSource}"/>
+                        <h:outputText value="#{avancementController.selected.echelonSource}" title="#{bundle.ViewAvancementTitle_echelonSource}"/>
+                        <h:outputText value="#{bundle.ViewAvancementLabel_echelonDestination}"/>
+                        <h:outputText value="#{avancementController.selected.echelonDestination}" title="#{bundle.ViewAvancementTitle_echelonDestination}"/>
+                        <h:outputText value="#{bundle.ViewAvancementLabel_id}"/>
+                        <h:outputText value="#{avancementController.selected.id}" title="#{bundle.ViewAvancementTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="AvancementViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
