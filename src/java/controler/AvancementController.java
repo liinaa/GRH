@@ -18,6 +18,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import service.EchelonFacade;
 
 @Named("avancementController")
 @SessionScoped
@@ -27,10 +28,13 @@ public class AvancementController implements Serializable {
     private service.AvancementFacade ejbFacade;
     private List<Avancement> items = null;
     private Avancement selected;
+    private EchelonFacade echelonFacade;
 
     public AvancementController() {
     }
-
+    public void findNext(){
+        selected.setEchelonDestination(echelonFacade.findByNext(selected.getEmploye().getEchelon()));
+    }
     public Avancement getSelected() {
         return selected;
     }
@@ -56,6 +60,7 @@ public class AvancementController implements Serializable {
     }
 
     public void create() {
+        selected.setEchelonSource(selected.getEmploye().getEchelon());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AvancementCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -85,22 +90,18 @@ public class AvancementController implements Serializable {
         if (selected != null) {
             setEmbeddableKeys();
             try {
-                if (persistAction != PersistAction.DELETE) {
+                if (persistAction == PersistAction.CREATE) {
+                    int res = getFacade().save(selected);
+                    if(res<0)
+                    JsfUtil.addErrorMessage("Not Saved");
+                    else JsfUtil.addSuccessMessage("Saved");
+                } else if (persistAction == PersistAction.UPDATE) {
                     getFacade().edit(selected);
-                } else {
+                    JsfUtil.addSuccessMessage(successMessage);
+                }
+                else {
                     getFacade().remove(selected);
-                }
-                JsfUtil.addSuccessMessage(successMessage);
-            } catch (EJBException ex) {
-                String msg = "";
-                Throwable cause = ex.getCause();
-                if (cause != null) {
-                    msg = cause.getLocalizedMessage();
-                }
-                if (msg.length() > 0) {
-                    JsfUtil.addErrorMessage(msg);
-                } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                    JsfUtil.addSuccessMessage(successMessage);
                 }
             } catch (Exception ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);

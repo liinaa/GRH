@@ -33,6 +33,22 @@ public class Employe implements Serializable {
     private Echelon echelon;
     @ManyToMany(mappedBy = "employes")
     private List<Fonction> fonctions;
+
+    public List<Fonction> getFonctions() {
+        return fonctions;
+    }
+
+    public void setFonctions(List<Fonction> fonctions) {
+        this.fonctions = fonctions;
+    }
+
+    public List<Departement> getDepartements() {
+        return departements;
+    }
+
+    public void setDepartements(List<Departement> departements) {
+        this.departements = departements;
+    }
     @OneToMany(mappedBy = "responsable")
     private List<Departement> departements;
 

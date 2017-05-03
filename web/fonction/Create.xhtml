@@ -16,13 +16,15 @@
                         <p:selectOneMenu id="departement" value="#{fonctionController.selected.departement}" >
                             <f:selectItems value="#{departementController.itemsAvailableSelectOne}"
                                            var="departementItem"
-                                           itemValue="#{departementItem}"/>
+                                           itemValue="#{departementItem}"
+                                           itemLabel="#{departementItem.nom}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateFonctionLabel_fonction}" for="fonction" />
                         <p:selectOneMenu id="fonction" value="#{fonctionController.selected.fonction}" >
                             <f:selectItems value="#{fonctionController.itemsAvailableSelectOne}"
                                            var="fonctionItem"
-                                           itemValue="#{fonctionItem}"/>
+                                           itemValue="#{fonctionItem}"
+                                           itemLabel="#{fonctionItem.nom}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateFonctionLabel_nom}" for="nom" />
                         <p:inputText id="nom" value="#{fonctionController.selected.nom}" title="#{bundle.CreateFonctionTitle_nom}" />

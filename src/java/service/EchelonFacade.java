@@ -6,6 +6,7 @@
 package service;
 
 import bean.Echelon;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,5 +29,22 @@ public class EchelonFacade extends AbstractFacade<Echelon> {
     public EchelonFacade() {
         super(Echelon.class);
     }
+    public Echelon findByNext(Echelon echelon){
+        
+        String req = "SELECT e FROM Echelon e WHERE e.numero="+(echelon.getNumero()+1)+" and e.echelle.id="+echelon.getEchelle().getId();   
+        List<Echelon> echelonList = getEntityManager().createQuery(req).getResultList();
+        
+            if(echelonList.size()==1){
+                return echelonList.get(0);
+            } else if(echelonList.size()==0){
+                req = "SELECT e FROM Echelon e WHERE e.echelle.numero="+(echelon.getEchelle().getNumero()+1)+" and e.numero=1";
+                 echelonList = getEntityManager().createQuery(req).getResultList();
+                 if(echelonList.size()==1)
+                 return echelonList.get(0);
+                 else return echelon;
+            }
+            else return null;
+    }
+
     
 }
