@@ -28,6 +28,7 @@ public class AvancementController implements Serializable {
     private service.AvancementFacade ejbFacade;
     private List<Avancement> items = null;
     private Avancement selected;
+    @EJB
     private EchelonFacade echelonFacade;
 
     public AvancementController() {
@@ -36,6 +37,9 @@ public class AvancementController implements Serializable {
         selected.setEchelonDestination(echelonFacade.findByNext(selected.getEmploye().getEchelon()));
     }
     public Avancement getSelected() {
+         if (selected == null){
+            selected = new Avancement();
+        }
         return selected;
     }
 
