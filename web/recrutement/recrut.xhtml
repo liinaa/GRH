@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php 
+//require 'lock.php';
+require 'connect.php';
+
+?>	
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">	
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+
+    var navListItems = $('div.setup-panel div a'),
+            allWells = $('.setup-content'),
+            allNextBtn = $('.nextBtn');
+
+    allWells.hide();
+
+    navListItems.click(function (e) {
+        e.preventDefault();
+        var $target = $($(this).attr('href')),
+                $item = $(this);
+
+        if (!$item.hasClass('disabled')) {
+            navListItems.removeClass('btn-primary').addClass('btn-default');
+            $item.addClass('btn-primary');
+            allWells.hide();
+            $target.show();
+            $target.find('input:eq(0)').focus();
+        }
+    });
+
+    allNextBtn.click(function(){
+        var curStep = $(this).closest(".setup-content"),
+            curStepBtn = curStep.attr("id"),
+            nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+            curInputs = curStep.find("input[type='text'],input[type='url']"),
+            isValid = true;
+
+        $(".form-group").removeClass("has-error");
+        for(var i=0; i<curInputs.length; i++){
+            if (!curInputs[i].validity.valid){
+                isValid = false;
+                $(curInputs[i]).closest(".form-group").addClass("has-error");
+            }
+        }
+
+        if (isValid)
+            nextStepWizard.removeAttr('disabled').trigger('click');
+    });
+
+    $('div.setup-panel div a.btn-primary').trigger('click');
+});
+	</script>
+	<style type="text/css">
+		
+		body{ 
+    margin-top:40px; 
+	background-color:#77B5FE;
+}
+
+.stepwizard-step p {
+    margin-top: 10px;
+}
+
+.stepwizard-row {
+    display: table-row;
+}
+
+.stepwizard {
+    display: table;
+    width: 100%;
+    position: relative;
+}
+
+.stepwizard-step button[disabled] {
+    opacity: 1 !important;
+    filter: alpha(opacity=100) !important;
+}
+
+.stepwizard-row:before {
+    top: 14px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    z-order: 0;
+
+}
+
+.stepwizard-step {
+    display: table-cell;
+    text-align: center;
+    position: relative;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+	</style>
+</h:head>
+<h:body>
+<div class="container">
+<div class="stepwizard">
+    <div class="stepwizard-row setup-panel">
+        <div class="stepwizard-step">
+            <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+            <p>Etape 1</p>
+        </div>
+        <div class="stepwizard-step">
+            <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+            <p>Etape 2</p>
+        </div>
+        <div class="stepwizard-step">
+            <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+            <p>Etape 3</p>
+        </div>
+    </div>
+</div>
+<form role="form">
+    <div class="row setup-content" id="step-1">
+        <div class="col-xs-12">
+            <div class="col-md-12">
+                <h3> Etape1 1</h3>
+                <div class="form-group">
+                    <label class="control-label">Nom</label>
+                    <input  name="fname" maxlength="100" type="text" required="required" class="form-control" placeholder="votre Nom"  />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Prenom</label>
+                    <input  name ="lname" maxlength="100" type="text" required="required" class="form-control" placeholder="Votre Prenom" />
+                </div>
+                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >suivant</button>
+            </div>
+        </div>
+    </div>
+    <div class="row setup-content" id="step-2">
+        <div class="col-xs-12">
+            <div class="col-md-12">
+                <h3> Etape 2</h3>
+                <div class="form-group">
+                    <label class="control-label">Email</label>
+                    <input name="email" maxlength="200" type="email" required="required" class="form-control" placeholder="votre email" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">numerau de telephone</label>
+                    <input name="tel" maxlength="200" type="text" required="required" class="form-control" placeholder="num tele"  />
+                </div>
+				 <div class="form-group">
+                    <label class="control-label">Adresse</label>
+                    <input name="username" maxlength="200" type="text" required="required" class="form-control" placeholder="adresse"  />
+                </div>
+				<div class="form-group">
+                    <label class="control-label">Departement</label>
+                    <select>
+                      <option value="maintenance/logistique">Maintenace/logistique</option>
+                      <option value="travaux">Depart.Travaux</option>
+                      <option value="atelier/atelier mobile">Atelier/Atelier mobile</option>
+                      <option value="conducteu-travaux">conducteu-travaux</option>
+               </select>
+
+
+                </div>
+                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Suivant</button>
+            </div>
+        </div>
+    </div>
+    <div class="row setup-content" id="step-3">
+        <div class="col-xs-12">
+            <div class="col-md-12">
+                <h3> Etape 3</h3>
+                <div class="form-group">
+                    <label class="control-label">Mot de passe</label>
+                    <input name="password" maxlength="200" type="password" required="required" class="form-control" placeholder="password" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">confirmer mot de passe </label>
+                    <input name="rpassword" maxlength="200" type="text" required="required" class="form-control" placeholder="confirm-password"  />
+                </div>
+                <button class="btn btn-success btn-lg pull-right" type="submit">enregistrer!</button>
+				
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+
+</h:body>
+</html>\
+
+

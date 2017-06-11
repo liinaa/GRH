@@ -6,66 +6,52 @@
 package bean;
 
 import java.io.Serializable;
-import java.util.List;
+import javafx.scene.chart.PieChart;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import org.primefaces.model.chart.PieChartModel;
 
 /**
  *
  * @author Lina
  */
 @Entity
-public class Echelle implements Serializable {
+public class Chart implements Serializable {
 
     private static final long serialVersionUID = 1L;
-        @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private int numero;
-    private String nomEchelle;
-    @OneToMany(mappedBy = "echelle")
-    private List<Echelon> echelons;
+    private PieChartModel model;
 
-
-    public Echelle() {
+    public Chart(int a, int b, int c, int d) {
+        model = new PieChartModel();
+        model.set("Salaire entre 0 et 3000",a);
+        model.set("Salaire entre 3000 et 5000",b);
+        model.set("Salaire entre 5000 et 10000",c);
+        model.set("Salaire superieur à 10000",d);
+        
+        model.setTitle("Salaire des employés");
+        model.setLegendPosition("e");
+        model.setFill(true);
+        model.setShowDataLabels(true);
+        model.setDiameter(150);
+        
     }
 
-    public Echelle(Long id, int numero, String nomEchelle) {
-        this.id = id;
-        this.setNumero(numero);
-        this.nomEchelle = nomEchelle;
+    public Chart() {
     }
 
-    public String getNomEchelle() {
-        return nomEchelle;
+    public PieChartModel getModel() {
+        return model;
     }
 
-    public void setNomEchelle(String nomEchelle) {
-        this.nomEchelle = nomEchelle;
-    }
-    
-    public int getNumero() {
-        return numero;
+    public void setModel(PieChartModel model) {
+        this.model = model;
     }
 
-    public void setNumero(int numero) {
-        if(numero>=1 && numero<=11)
-        this.numero = numero;
-    }
-
-    public List<Echelon> getEchelons() {
-        return echelons;
-    }
-
-    public void setEchelons(List<Echelon> echelons) {
-        this.echelons = echelons;
-    }
-
-    
-    
     public Long getId() {
         return id;
     }
@@ -84,10 +70,10 @@ public class Echelle implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Echelle)) {
+        if (!(object instanceof Chart)) {
             return false;
         }
-        Echelle other = (Echelle) object;
+        Chart other = (Chart) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -96,7 +82,7 @@ public class Echelle implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Echelle[ id=" + id + " ]";
+        return "bean.Chart[ id=" + id + " ]";
     }
     
 }

@@ -1,13 +1,13 @@
 package controler;
 
-import bean.Departement;
+import bean.Avancement;
+import bean.Chart;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
-import service.DepartementFacade;
+import service.ChartFacade;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,24 +19,31 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import service.EmployeFacade;
 
-@Named("departementController")
+@Named("chartController")
 @SessionScoped
-public class DepartementController implements Serializable {
+public class ChartController implements Serializable {
 
     @EJB
-    private service.DepartementFacade ejbFacade;
-    private List<Departement> items = null;
-    private Departement selected;
-  
-    public DepartementController() {
+    private service.ChartFacade ejbFacade;
+    private List<Chart> items = null;
+    private Chart selected;
+     @EJB
+    private EmployeFacade employeFacade;
+
+
+    public ChartController() {
     }
-        
-    public Departement getSelected() {
+
+    public Chart getSelected() {
+        if (selected == null){
+            selected = new Chart(employeFacade.findByCategorieSalaire(0,3000),employeFacade.findByCategorieSalaire(3000,5000),employeFacade.findByCategorieSalaire(5000,10000),employeFacade.findByCategorieSalaire(10000,100000));
+        }
         return selected;
     }
 
-    public void setSelected(Departement selected) {
+    public void setSelected(Chart selected) {
         this.selected = selected;
     }
 
@@ -46,36 +53,36 @@ public class DepartementController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private DepartementFacade getFacade() {
+    private ChartFacade getFacade() {
         return ejbFacade;
     }
 
-    public Departement prepareCreate() {
-        selected = new Departement();
+    public Chart prepareCreate() {
+        selected = new Chart(employeFacade.findByCategorieSalaire(0,3000),employeFacade.findByCategorieSalaire(3000,5000),employeFacade.findByCategorieSalaire(5000,10000),employeFacade.findByCategorieSalaire(10000,100000));
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DepartementCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ChartCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("DepartementUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ChartUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("DepartementDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ChartDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Departement> getItems() {
+    public List<Chart> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -110,29 +117,29 @@ public class DepartementController implements Serializable {
         }
     }
 
-    public Departement getDepartement(java.lang.Long id) {
+    public Chart getChart(java.lang.Long id) {
         return getFacade().find(id);
     }
 
-    public List<Departement> getItemsAvailableSelectMany() {
+    public List<Chart> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Departement> getItemsAvailableSelectOne() {
+    public List<Chart> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Departement.class)
-    public static class DepartementControllerConverter implements Converter {
+    @FacesConverter(forClass = Chart.class)
+    public static class ChartControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            DepartementController controller = (DepartementController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "departementController");
-            return controller.getDepartement(getKey(value));
+            ChartController controller = (ChartController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "chartController");
+            return controller.getChart(getKey(value));
         }
 
         java.lang.Long getKey(String value) {
@@ -152,11 +159,11 @@ public class DepartementController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Departement) {
-                Departement o = (Departement) object;
+            if (object instanceof Chart) {
+                Chart o = (Chart) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Departement.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Chart.class.getName()});
                 return null;
             }
         }

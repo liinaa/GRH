@@ -12,28 +12,43 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="nosEmploye.css" type="text/css"/>
         <title>Employés de l'entreprise</title>
+        <script type="text/javascript">
+            PrimeFaces.escapeRegExpOld = PrimeFaces.escapeRegExp;
+            PrimeFaces.escapeRegExp = function (c) {
+                var t = PrimeFaces.escapeRegExpOld(c);
+                t = t.replace('&amp;', '&amp;amp;');
+                return t;
+            }
+        </script>
     </h:head>
     <h:body>
         <div class="container-fluid">
             <div class="entete">   
                 <div class="respo"> 
-                <img src="Unknown.jpg" class="img-circle" alt="Photo" height="110" width="10%" id="image"/>
-                <div class="carac" style="display:inline-block;vertical-align: top;">
-                    <h3> Ait Khouya Lina </h3>
-                    <p:separator style="width:200px;margin:0 auto 0 auto; "/>
-                    <h4> Responsable RH </h4>
-                </div>    
+                    <img src="Unknown.jpg" class="img-circle" alt="Photo" height="110" width="10%" id="image"/>
+                    <div class="carac" style="display:inline-block;vertical-align: top;">
+                        <h3> Ait Khouya Lina </h3>
+                        <p:separator style="width:200px;margin:0 auto 0 auto; "/>
+                        <h4> Responsable #{orgaEmployeController.departem} </h4>
+                    </div>    
                 </div>
+		<h:form prependId="false">
+                <p:autoComplete id="autocomplete" style="float:right;" value="#{employeController.selected.nom}"
+                                completeMethod="#{employeController.completer}">
+                </p:autoComplete>
+                </h:form>
             </div>
+
             <p:dataGrid value="#{employeController.items}" var="employe" columns="3" rows="12">
                 <p:panel header="#{employe.nom} #{employe.prenom}" class="pan">
                     <div>
-            <img src="Unknown.jpg" class="img-rounded" alt="Photo" height="25%" width="25%" id="Cemp"/>
-            <h:outputText class="text-info" value="Salaire: #{employe.salaire}">
-            </h:outputText>
+                        <img src="Unknown.jpg" class="img-rounded" alt="Photo" height="25%" width="25%" id="Cemp"/>
+                        <h:outputText class="text-info" value="Salaire: #{employe.salaire}">
+                        </h:outputText>
                     </div>
                 </p:panel>
             </p:dataGrid>
+
         </div>
     </h:body>
 </html>

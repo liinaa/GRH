@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="author" content="Matt Everson of Astuteo, LLC – https://www.astuteo.com/slickmap" />
+	<title>ORGANIGRAMME CIBLE BETOVER</title>
+	<link rel="stylesheet" type="text/css" media="screen, print" href="organig.css" />
+        <link rel="stylesheet" type="text/css" media="screen, print" href="../menu/menu.css"/>
+    </h:head>
+    <ui:insert name="divMenu">
+        <ui:include src="/menu/menu.xhtml"/>
+    </ui:insert>
+    <h:body>
+<div class="content">
+  <h2 style="color:white; text-align:center; font-family:'Comic Sans MS';">ORGANIGRAMME CIBLE BETOVER </h2>
+  <figure class="org-chart cf">
+      <h:form>
+    <ul class="administration">
+      <li>					
+        <ul class="director">
+          <li>
+            <a href="#"><span style="font-size:24px">Directeur/Gerant  M.K.Khaldoun</span></a>
+            <ul class="subdirector">
+              <li><a href="#"><span>Assistant Direction Z.Abou Elbennaa</span></a></li>
+            </ul>
+            <ul class="departments cf">								
+              <li><a href="#"><span>Responsable RH</span></a></li>
+              
+              <li class="department dep-a">
+                <a href="#"><span>
+                       <h:commandButton class="ab" style="background:none; border:none;width:100%;cursor:pointer;" action="#{orgaEmployeController.depart}" value="Responsable Departement Maintenance et logistique A.khabbaz"> 
+                            <f:param name="departement" value="departement Maintenance et logistique"/>
+                        </h:commandButton>
+                        </span></a>
+                <ul class="sections">
+                  <li class="section"><a href="#"><span>Chef Magasinier Chantier B.Babouk</span></a></li>
+                  <li class="section"><a href="#"><span>Atelier et Atelier Mobile A.Ennouri</span></a></li>
+                  <li class="section"><a href="#"><span>Transport</span></a></li>
+                
+                </ul>
+              </li>
+              <li class="department dep-b">
+                <a href="#"><span>
+                        <h:commandButton class="ab" style="background:none; border:none;width:100%; cursor:pointer;" action="#{orgaEmployeController.depart}" value="Responsable Departement Production Enribe A.khabbaz"> 
+                            <f:param name="departement" value="departement Production Enribe"/>
+                        </h:commandButton>
+                        </span></a>
+                <ul class="sections">
+                  <li class="section"><a href="#"><span>Magasinier Poste A.ouidder</span></a></li>
+                  <li class="section"><a href="#"><span>chef Poste B.Bakbouk</span></a></li>
+                  
+                </ul>
+              </li>
+              <li class="department dep-c">
+                <a href="#"><span>
+                        <h:commandButton class="ab" style="background:none; border:none;width:100%; cursor:pointer;" action="#{orgaEmployeController.depart}" value="Responsable Depart.Travaux Directeur Projet MOE M.K.Khaldoun"> 
+                            <f:param name="departement" value="departement Travaux Directeur Projet MOE"/>
+                        </h:commandButton>
+                        </span></a>
+                <ul class="sections">
+                  <li class="section"><a href="#"><span>BET </span></a></li>
+                  <li class="section"><a href="#"><span>Conducteur travaux 1,2,3</span></a></li>
+                  
+                </ul>
+              </li>
+              <li class="department dep-d">
+                <a href="#"><span>
+                        <h:commandButton class="ab" style="background:none; border:none;width:100%; cursor:pointer;" action="#{orgaEmployeController.depart}" value="Atelier et Atelier Mobile"> 
+                            <f:param name="departement" value="Atelier et Atelier Mobile"/>
+                        </h:commandButton>
+                         </span></a>
+                <ul class="sections">
+                  <li class="section"><a href="#"><span>Magasinier Atelier A.Ennouri</span></a></li>
+                  <li class="section"><a href="#"><span>Chef mecanicien M.Haitman </span></a></li>
+                   <li class="section"><a href="#"><span>Mecanicien O.Bouzit</span></a></li>
+                  <li class="section"><a href="#"><span>Mecanicien Abdelkbir</span></a></li>
+                  <li class="section"><a href="#"><span>Aides mecaniciens (Aaoufir/Kassissi)</span></a></li>
+				  <li class="section"><a href="#"><span>Electricien B.lachkhem</span></a></li>
+                </ul>
+              </li>
+              <li class="department dep-e">
+                <a href="#"><span>
+                        <h:commandButton class="ab" style="background:none; border:none;width:100%; cursor:pointer;" action="#{orgaEmployeController.depart}" value="Conducteur travaux 1,2,3"> 
+                            <f:param name="departement" value="Conducteur travaux 1,2,3"/>
+                        </h:commandButton>
+                        </span></a>
+                <ul class="sections">
+                  <li class="section"><a href="#"><span>Chefs d'equipe</span></a></li>
+                  <li class="section"><a href="#"><span>Conducteur Engins</span></a></li>
+                  <li class="section"><a href="#"><span>Ouvriers</span></a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>	
+      </li>
+    </ul>
+          </h:form>
+  </figure>
+</div>     
+    </h:body>
+</html>
+

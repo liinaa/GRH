@@ -1,0 +1,36 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 5 juin 2017, 12:13:01
+    Author     : Lina
+*/
+.w3-circle {
+    border-radius:50%;
+    width:200px;
+    height:200px;
+    background-color: #2E6DAF;
+    box-shadow: 2px 2px 8px #F5EEC9;
+    font: 30px "Comic Sans MS";
+    color: #F5EEC9;
+    float:left;
+    margin: 20% 3% 0 5%;
+}
+.w3-circle:hover{
+animation-duration: 2s;
+animation-name: rotate;
+animation-iteration-count: infinite;
+}
+@keyframes rotate{
+    from{
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+.content{
+       
+}

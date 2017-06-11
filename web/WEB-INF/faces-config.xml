@@ -8,5 +8,32 @@
             <base-name>/Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/Bundle</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/Bundle</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/Bundle</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/Bundle</base-name>
+            <var>bundle</var>
+        </resource-bundle>
     </application>
+    
+    <navigation-rule>
+	<from-view-id>/organi.xhtml</from-view-id>
+	<navigation-case>
+		<from-action>#{orgaEmployeController.depart}</from-action>
+		<from-outcome>nosEmploye</from-outcome>
+		<to-view-id>/listEmploye/nosEmploye.xhtml</to-view-id>
+                <redirect />
+	</navigation-case>
+    </navigation-rule>
+    
 </faces-config>

@@ -6,6 +6,7 @@ import controler.util.JsfUtil.PersistAction;
 import service.EmployeFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -27,10 +28,21 @@ public class EmployeController implements Serializable {
     private service.EmployeFacade ejbFacade;
     private List<Employe> items = null;
     private Employe selected;
+    @EJB
+    private EmployeFacade employeFacade;
 
     public EmployeController() {
     }
-
+    public int findCategorieSalaire(int min,int max){
+        return employeFacade.findByCategorieSalaire(min,max);
+    }
+    public List<String> completer(String query) {
+         System.out.println("complete: query = " + query);
+        List<String> results = new ArrayList<String>();
+             for (int i = 0; i < 10; i++)
+                    results.add(query + i);
+             return results;
+    }
     public Employe getSelected() {
         return selected;
     }

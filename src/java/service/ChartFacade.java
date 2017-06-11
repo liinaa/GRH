@@ -5,10 +5,7 @@
  */
 package service;
 
-import bean.Echelon;
-import bean.Employe;
-import java.util.ArrayList;
-import java.util.List;
+import bean.Chart;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Lina
  */
 @Stateless
-public class EmployeFacade extends AbstractFacade<Employe> {
+public class ChartFacade extends AbstractFacade<Chart> {
 
     @PersistenceContext(unitName = "GRHv1PU")
     private EntityManager em;
@@ -28,14 +25,8 @@ public class EmployeFacade extends AbstractFacade<Employe> {
         return em;
     }
 
-    public EmployeFacade() {
-        super(Employe.class);
-    }
-    
-    public int findByCategorieSalaire(int min, int max){
-        String req = "SELECT e FROM Employe e WHERE e.salaire>="+min+" and e.salaire<="+max;  
-        List<Employe> employes = getEntityManager().createQuery(req).getResultList();
-        return employes.size();
+    public ChartFacade() {
+        super(Chart.class);
     }
     
 }
